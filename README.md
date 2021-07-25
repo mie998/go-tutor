@@ -61,4 +61,10 @@ https://astaxie.gitbooks.io/build-web-application-with-golang/content/ja/02.2.ht
 
 - golang の channel 操作のアンチパターン https://hori-ryota.com/blog/golang-channel-pattern/
 
+- defer は遅延実行を行うという意味の英単語。その名の通り遅延実行を記述する。これの素晴らしいところはエラーが発生した際にも defer が実行されるところ。安全に web socket のコネクションを切断することができる。他の言語にも欲しい！
+    1.  A deferred function's arguments are evaluated when the defer statement is evaluated.
+    1. Deferred function calls are executed in Last In First Out order after the surrounding function returns.
+    1. Deferred functions may read and assign to the returning function's named return values.(referenced from https://kakakakakku.hatenablog.com/entry/2015/12/15/222217)
+    
+    
 
