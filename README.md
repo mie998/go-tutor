@@ -59,3 +59,6 @@ https://astaxie.gitbooks.io/build-web-application-with-golang/content/ja/02.2.ht
 
 - golang では並行処理がめちゃくちゃ重要な感じで、その中でも goroutine と channel が重要。channel 変数は `chan<-` か `<-chan` で定義できるけど、ここ混乱ポイント。この変数を主体としてそれぞれ受信専用、送信専用の channel を作成、って感じ。
 
+- golang の channel 操作のアンチパターン https://hori-ryota.com/blog/golang-channel-pattern/
+
+
