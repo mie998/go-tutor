@@ -1,3 +1,6 @@
+# README! 
+https://astaxie.gitbooks.io/build-web-application-with-golang/content/ja/04.4.html の内容をやっていきながら、気になる部分をメモしていく。
+
 # golang 言語について思うこと
 
 https://astaxie.gitbooks.io/build-web-application-with-golang/content/ja/02.2.html
