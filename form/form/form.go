@@ -6,7 +6,6 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	"regexp"
 	"strconv"
 )
 
@@ -28,17 +27,20 @@ func login(w http.ResponseWriter, r *http.Request) {
 	}
 }
 func validateUsername(str string) {
-	if m, e := regexp.MatchString("^[a-zA-Z0-9]+", str); e != nil {
+	r, _ := regexp2.Compile(`^[a-zA-Z0-9]+`, regexp2.RegexOptions(10))
+	if m, e := r.MatchString(str); !m || len(e.Error()) > 0 {
 		fmt.Println(e)
 	} else {
-		fmt.Println("username: ", m)
+		fmt.Println("username is accepted!!")
 	}
 }
+
 func validatePassword(str string) {
-	if m, e := regexp2.Compile(`^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,100}$`, str); e != nil {
+	r, _ := regexp2.Compile(`^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,100}$`, regexp2.RegexOptions(10))
+	if m, e := r.MatchString(str); !m || len(e.Error()) > 0 {
 		fmt.Println(e)
 	} else {
-		fmt.Println("username: ", m)
+		fmt.Println("password is accepted!!")
 	}
 }
 
@@ -46,9 +48,11 @@ func validateAge(str string) {
 	ageint, err := strconv.Atoi(str)
 	if err != nil {
 		fmt.Println(err)
+		return
 	}
 	if !(0 < ageint && ageint < 100) {
 		fmt.Println("your age doesn't seem to be correct.")
+		return
 	}
 	fmt.Println("age: ", ageint)
 }
