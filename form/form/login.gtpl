@@ -4,8 +4,9 @@
 </head>
 <body>
 <form action="/login" method="post">
-    ユーザ名:<input type="text" name="username">
-    パスワード:<input type="password" name="password">
+    username: <input type="text" name="username">
+    password: <input type="password" name="password">
+    age: <input type="text" name="age">
     <input type="submit" value="ログイン">
 </form>
 </body>

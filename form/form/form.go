@@ -2,22 +2,16 @@ package main
 
 import (
 	"fmt"
+	"github.com/dlclark/regexp2"
 	"html/template"
 	"log"
 	"net/http"
-	"strings"
+	"regexp"
+	"strconv"
 )
 
 func sayhelloName(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	fmt.Println(r.Form) //これらのデータはサーバのプリント情報に出力されます
-	fmt.Println("path", r.URL.Path)
-	fmt.Println("scheme", r.URL.Scheme)
-	fmt.Println(r.Form["url_long"])
-	for k, v := range r.Form {
-		fmt.Println("key:", k)
-		fmt.Println("val:", strings.Join(v, ""))
-	}
 	fmt.Fprintf(w, "Hello astaxie!")
 }
 
@@ -28,9 +22,35 @@ func login(w http.ResponseWriter, r *http.Request) {
 		t.Execute(w, nil)
 	} else {
 		r.ParseForm()
-		fmt.Println("username:", r.Form["username"])
-		fmt.Println("password:", r.Form["password"])
+		validateUsername(r.Form.Get("username"))
+		validatePassword(r.Form.Get("password"))
+		validateAge(r.Form.Get("age"))
 	}
+}
+func validateUsername(str string) {
+	if m, e := regexp.MatchString("^[a-zA-Z0-9]+", str); e != nil {
+		fmt.Println(e)
+	} else {
+		fmt.Println("username: ", m)
+	}
+}
+func validatePassword(str string) {
+	if m, e := regexp2.Compile(`^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)[a-zA-Z\d]{8,100}$`, str); e != nil {
+		fmt.Println(e)
+	} else {
+		fmt.Println("username: ", m)
+	}
+}
+
+func validateAge(str string) {
+	ageint, err := strconv.Atoi(str)
+	if err != nil {
+		fmt.Println(err)
+	}
+	if !(0 < ageint && ageint < 100) {
+		fmt.Println("your age doesn't seem to be correct.")
+	}
+	fmt.Println("age: ", ageint)
 }
 
 func main() {
